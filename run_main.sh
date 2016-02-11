@@ -92,9 +92,10 @@ apt-get install libapache2-mod-wsgi python-dev python-pip build-essential
 pip install --upgrade pip
 
 conf_regex="application_name"
+conf_reg_username="user_name"
 conf_file="/root/vps-setup/000-default.conf"
 if [ -f "$conf_file" ] ; then
-	echo "YOYOYOYOYOYOYO"
+	sed -i.bak "s|${conf_reg_username}|${username}|g" $conf_file
 	sed -i.bak "s|${conf_regex}|${app_name}|g" $conf_file
 fi
 cat $conf_file
@@ -119,6 +120,7 @@ chmod +x run_vps.sh
 sudo -u postgres psql -c "CREATE USER catalog WITH PASSWORD 'catalog' CREATEDB LOGIN;"
 sudo -u postgres psql -c "CREATE ROLE catalog WITH CREATEDB;"
 
+service apache2 restart
 
 
 
