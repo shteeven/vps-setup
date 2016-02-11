@@ -71,49 +71,53 @@ else
 fi
 
 # block all ports by default
-#sudo ufw default deny incoming
-#sudo ufw default allow outgoing
-#
-## open needed ports
-#sudo ufw allow ssh
-#sudo ufw allow ${ssh_port}/tcp
-#sudo ufw allow www
-#sudo ufw enable
-#
-#################################
-## Install apache and prepare server for application
-#################################
-#sudo apt-get install apache2
-#sudo apt-get install postgresql postgresql-contrib
-## is this necessary???
-#sudo apt-get install memcached
-#
-#sudo apt-get install libapache2-mod-wsgi python-dev python-pip build-essential
-#sudo pip install --upgrade pip
-#
-#conf_regex=\[app_name\]
-#conf_file="/root/vps-setup/000-default.conf"
-#if [ -f "$conf_file" ] ; then
-#	sed -i.bak "s|${conf_regex}|${app_name}|" $conf_file
-#fi
-#
-#sudo cp -f $conf_file /etc/apache2/sites-enabled/
+ufw default deny incoming
+ufw default allow outgoing
 
-#################################
-## Install application and dependencies
-#################################
-#app_dir="/var/www/"
-#sudo git clone ${git_repo}  app_dir
-#sudo chmod +x ${app_dir}/$app_name/vps/run_vps.sh
-#sudo .${app_dir}/$app_name/vps/run_vps.sh
-#
-#################################
-## Set up PSQL
-#################################
+# open needed ports
+ufw allow ssh
+ufw allow ${ssh_port}/tcp
+ufw allow www
+ufw enable
+
+################################
+# Install apache and prepare server for application
+################################
+apt-get install apache2
+apt-get install postgresql postgresql-contrib
+# is this necessary???
+apt-get install memcached
+
+apt-get install libapache2-mod-wsgi python-dev python-pip build-essential
+pip install --upgrade pip
+
+conf_regex=\[app_name\]
+conf_file="/root/vps-setup/000-default.conf"
+if [ -f "$conf_file" ] ; then
+	sed -i.bak "s|${conf_regex}|${app_name}|" $conf_file
+fi
+
+cp -f $conf_file /etc/apache2/sites-enabled/
+
+################################
+# Install application and dependencies
+################################
+app_dir="/var/www/"
+git clone ${git_repo}  app_dir
+chmod +x ${app_dir}/$app_name/vps/run_vps.sh
+.${app_dir}/$app_name/vps/run_vps.sh
+
+################################
+# Set up PSQL
+################################
 #sudo -u postgres -i
+runuser -l  postgres -c 'psql -c "CREATE USER catalog WITH PASSWORD catalog CREATEDB LOGIN;"'
+runuser -l  postgres -c 'psql -c "CREATE ROLE catalog WITH CREATEDB;"'
+
+
 #psql -c "CREATE USER catalog WITH PASSWORD 'catalog' CREATEDB LOGIN;"
 #psql -c "CREATE ROLE catalog WITH CREATEDB;"
-#
-#
-#
-#
+
+
+
+
