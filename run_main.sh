@@ -116,8 +116,9 @@ chmod +x run_vps.sh
 # Set up PSQL
 ################################
 #sudo -u postgres -i
-runuser -l  postgres -c 'psql -c "CREATE USER catalog WITH PASSWORD catalog CREATEDB LOGIN;"'
-runuser -l  postgres -c 'psql -c "CREATE ROLE catalog WITH CREATEDB;"'
+sudo -u postgres psql -c "CREATE USER catalog WITH PASSWORD catalog CREATEDB LOGIN;"
+#runuser -l  postgres -c 'psql -c "CREATE USER catalog WITH PASSWORD catalog CREATEDB LOGIN;"'
+#runuser -l  postgres -c 'psql -c "CREATE ROLE catalog WITH CREATEDB;"'
 
 
 #psql -c "CREATE USER catalog WITH PASSWORD 'catalog' CREATEDB LOGIN;"
