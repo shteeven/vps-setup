@@ -97,6 +97,7 @@ if [ -f "$conf_file" ] ; then
 	echo "YOYOYOYOYOYOYO"
 	sed -i.bak "s|${conf_regex}|${app_name}|" $conf_file
 fi
+cat $conf_file
 
 cp -f $conf_file /etc/apache2/sites-enabled/
 
@@ -104,7 +105,8 @@ cp -f $conf_file /etc/apache2/sites-enabled/
 # Install application and dependencies
 ################################
 app_dir="/var/www"
-git clone ${git_repo}  app_dir
+cd ${app_dir}
+git clone ${git_repo}
 chmod +x ${app_dir}/${app_name}/${app_name}/vps/run_vps.sh
 .${app_dir}/$app_name/vps/run_vps.sh
 
