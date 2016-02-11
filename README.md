@@ -19,6 +19,10 @@ $ chmod 600 ~/.ssh/udacity_key.rsa
 $ ssh –i ~/.ssh/udacity_key.rsa root@YOUR.VPS.IP.ADDR
 ```
 , putting your VPS ip address after 'root@'.
+- Update package repos:
+```sh
+$ apt-get update
+```
 - Install git with:
 ```sh
 $ apt-get install git-all
