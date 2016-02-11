@@ -95,7 +95,7 @@ conf_regex="application_name"
 conf_file="/root/vps-setup/000-default.conf"
 if [ -f "$conf_file" ] ; then
 	echo "YOYOYOYOYOYOYO"
-	sed -i.bak "s|${conf_regex}|${app_name}|" $conf_file
+	sed -i.bak "s|${conf_regex}|${app_name}|g" $conf_file
 fi
 cat $conf_file
 
