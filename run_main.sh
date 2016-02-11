@@ -91,7 +91,7 @@ echo "You entered: $ssh_port"
 #apt-get install libapache2-mod-wsgi python-dev python-pip build-essential
 #pip install --upgrade pip
 
-conf_regex="/[application_name/]"
+conf_regex="\[application_name\]"
 conf_file="/root/vps-setup/000-default.conf"
 if [ -f "$conf_file" ] ; then
 	echo "YOYOYOYOYOYOYO"
