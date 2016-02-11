@@ -1,8 +1,45 @@
 ## Synopsis
 
-A fast, simple and secure set-up for running you Flask application on a vps. This set up assumes you are on a Unix system and have a VPS set up with Amazon, Heroku, or other like service that runs an Ubuntu 14.04 system. It will work with others, but this is the only tested version. This installation also requires git to be installed on the host system.
+A fast, simple and secure set-up for running your Flask application on a vps. This set up assumes you are on a Unix system and have a VPS set up with Amazon, Heroku, or other like service that runs an Ubuntu 14.04 system. It will work with others, but this is the only tested version.
+
+This script still requires to make it more universal, but for now, it works with my catalog-app
 
 ## Installation
+
+- Download and put RSA key file in:
+```sh
+$ ~/.ssh/
+```
+- Change its file permissions with:
+```sh
+$ chmod 600 ~/.ssh/udacity_key.rsa
+```
+- SSH into the VPS with:
+```sh
+$ ssh –i ~/.ssh/udacity_key.rsa root@YOUR.VPS.IP.ADDR
+```
+, putting your VPS ip address after 'root@'.
+- Install git with:
+```sh
+$ apt-get install git-all
+```
+- Clone this repo to your VPS:
+```sh
+$ git clone https://github.com/shteeven/vps-setup.git
+```
+- After cloning, enter the following commands:
+```sh
+$ cd vps-setup
+```,
+```sh
+$ chmod +x run_main.sh
+```,
+```sh
+$ ./run_main.sh
+```
+- Enter any information for which you are prompted.
+- After script has finished, update the oauth providers to accept login requests from the new URL.
+- Enjoy the app.
 
 Pre-reqs:
 GIT must be installed on the host system. The user must have sudo access on host system.
