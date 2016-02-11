@@ -40,84 +40,84 @@ cat > /etc/sudoers.d/${username} << EOF1
 $username ALL=(ALL) NOPASSWD: ALL
 EOF1
 # switch users
-su - ${username}
+#su - ${username}
 echo "still running"
 
-#################################
-## Update and Upgrade current packages
-#################################
-#sudo apt-get update
-#sudo apt-get upgrade
-#
-## for admin work later
-#sudo apt-get install finger
-#
-#################################
-## Update timezone
-#################################
-#sudo timedatectl set-timezone UTC
-#
-#################################
-## Update port number and set up firewall
-#################################
-#regex='^Port 22$'
-#file="/etc/ssh/sshd_config"
-#
-#if [ -f "$file" ] ; then
-#	sed -i 's/$regex/Port $ssh_port/' $file
-#else
-#	echo "/etc/ssh/sshd_config could not be found."
-#	echo "Please manually change Port 22 to desired number, then comment out all commands above and try running again."
-#fi
-#
-## block all ports by default
-#sudo ufw default deny incoming
-#sudo ufw default allow outgoing
-#
-## open needed ports
-#sudo ufw allow ssh
-#sudo ufw allow ${ssh_port}/tcp
-#sudo ufw allow www
-#sudo ufw enable
-#
-#################################
-## Install apache and prepare server for application
-#################################
-#sudo apt-get install apache2
-#sudo apt-get install postgresql postgresql-contrib
-## is this necessary???
-#sudo apt-get install memcached
-#
-#sudo apt-get install libapache2-mod-wsgi python-dev python-pip build-essential
-#sudo pip install --upgrade pip
-#
-#conf_regex="\[app_name\]"
-#conf_file="/root/vps-setup/000-default.conf"
-#if [ -f "$conf_file" ] ; then
-#	sudo sed -i 's/$conf_regex/$app_name/' $conf_file
-#fi
-#
-#sudo cp -f $conf_file /etc/apache2/sites-enabled/
-#
-#################################
-## Install application and dependencies
-#################################
-#app_dir="/var/www/$app_name"
-#sudo mkdir ${app_dir}
-#cd ${app_dir}
-#sudo git clone ${git_repo}
-#cd ${app_name}/vps
-#sudo chmod +x run_vps.sh
-#
-#sudo ./run_vps.sh
-#
-#################################
-## Set up PSQL
-#################################
-#sudo -u postgres -i
-#psql -c "CREATE USER catalog WITH PASSWORD 'catalog' CREATEDB LOGIN;"
-#psql -c "CREATE ROLE catalog WITH CREATEDB;"
-#su - grader
-#
+################################
+# Update and Upgrade current packages
+################################
+sudo apt-get update
+sudo apt-get upgrade
+
+# for admin work later
+sudo apt-get install finger
+
+################################
+# Update timezone
+################################
+sudo timedatectl set-timezone UTC
+
+################################
+# Update port number and set up firewall
+################################
+regex='^Port 22$'
+file="/etc/ssh/sshd_config"
+
+if [ -f "$file" ] ; then
+	sed -i 's/$regex/Port $ssh_port/' $file
+else
+	echo "/etc/ssh/sshd_config could not be found."
+	echo "Please manually change Port 22 to desired number, then comment out all commands above and try running again."
+fi
+
+# block all ports by default
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+
+# open needed ports
+sudo ufw allow ssh
+sudo ufw allow ${ssh_port}/tcp
+sudo ufw allow www
+sudo ufw enable
+
+################################
+# Install apache and prepare server for application
+################################
+sudo apt-get install apache2
+sudo apt-get install postgresql postgresql-contrib
+# is this necessary???
+sudo apt-get install memcached
+
+sudo apt-get install libapache2-mod-wsgi python-dev python-pip build-essential
+sudo pip install --upgrade pip
+
+conf_regex="\[app_name\]"
+conf_file="/root/vps-setup/000-default.conf"
+if [ -f "$conf_file" ] ; then
+	sudo sed -i 's/$conf_regex/$app_name/' $conf_file
+fi
+
+sudo cp -f $conf_file /etc/apache2/sites-enabled/
+
+################################
+# Install application and dependencies
+################################
+app_dir="/var/www/$app_name"
+sudo mkdir ${app_dir}
+cd ${app_dir}
+sudo git clone ${git_repo}
+cd ${app_name}/vps
+sudo chmod +x run_vps.sh
+
+sudo ./run_vps.sh
+
+################################
+# Set up PSQL
+################################
+sudo -u postgres -i
+psql -c "CREATE USER catalog WITH PASSWORD 'catalog' CREATEDB LOGIN;"
+psql -c "CREATE ROLE catalog WITH CREATEDB;"
+su - grader
+
 
 
