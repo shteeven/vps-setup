@@ -102,9 +102,9 @@ cp -f $conf_file /etc/apache2/sites-enabled/
 ################################
 # Install application and dependencies
 ################################
-app_dir="/var/www/"
+app_dir="/var/www"
 git clone ${git_repo}  app_dir
-chmod +x ${app_dir}/$app_name/vps/run_vps.sh
+chmod +x ${app_dir}/${app_name}/vps/run_vps.sh
 .${app_dir}/$app_name/vps/run_vps.sh
 
 ################################
