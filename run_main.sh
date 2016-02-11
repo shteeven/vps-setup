@@ -107,7 +107,7 @@ cp -f $conf_file /etc/apache2/sites-enabled/
 app_dir="/var/www"
 cd ${app_dir}
 git clone ${git_repo}
-chmod +x ${app_dir}/${app_name}/${app_name}/vps/run_vps.sh
+chmod +x ${app_dir}/${app_name}/vps/run_vps.sh
 .${app_dir}/$app_name/vps/run_vps.sh
 
 ################################
