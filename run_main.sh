@@ -148,15 +148,15 @@
 #a2enmod status
 ## include the new config file
 #echo "Include /etc/apache2/httpd.conf" >> /etc/apache2/apache2.conf
-# insert user input and copy new config file
+# insert user input and copy new config file; problems with use of tilde here, so used cd instead of paths
 ip_regex="new_public_ip"
 cd ~/vps-setup/files/
-httpd_conf_file="~/vps-setup/files/httpd.conf"
 if [ -f "httpd.conf" ] ; then
 	echo "HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-	sed -i.bak "s|${ip_regex}|${public_ip}|" $conf_file
+	sed -i.bak "s|${ip_regex}|${public_ip}|" httpd.conf
 fi
-cp ${httpd_conf_file} /etc/apache2/httpd.conf
+cp httpd.conf /etc/apache2/httpd.conf
+cd ~/
 #
 ## Config agent url to access status and add password protection
 #agent_regex="^apache_status_url.*$"
