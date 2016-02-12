@@ -1,0 +1,6 @@
+[DEFAULT]
+ignoreip = 127.0.0.1/8
+banaction = ufw
+maxRetry = 5
+findtime = 600
+bantime = 7200

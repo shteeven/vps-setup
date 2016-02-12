@@ -6,9 +6,9 @@ This script still requires to make it more universal, but for now, it works with
 
 ## Installation
 
-- Download and put RSA key file in:
+- Download and put RSA key file in ~/.ssh/:
 ```sh
-$ ~/.ssh/
+$ mv ~/Downloads/udacity_key.rsa ~/.ssh/
 ```
 - Change its file permissions with:
 ```sh
