@@ -1,8 +1,13 @@
 #!/bin/bash
 
-################################
-# Get data from user
-################################
+###############################
+ Get data from user
+###############################
+echo "Please enter your server's public IP:"
+echo "THIS IS A MUST!!!!:"
+read public_ip
+echo "You entered: $public_ip"
+
 #echo "Enter the contents of the public key you just generated:"
 #echo "If you fail to enter the info correctly, you must start over."
 #read rsa_pub_key
@@ -26,10 +31,6 @@
 #[[ $input_username = '' ]] && username="$default_username" || username="$input_username"
 #echo "You entered: $username"
 #
-#echo "Please enter your server's public IP:"
-#echo "THIS IS A MUST!!!!:"
-#read public_ip
-#echo "You entered: $public_ip"
 #
 #default_port="2200"
 #echo "Please enter desired ssh port: ($default_port)"
@@ -155,7 +156,7 @@ if [ -f "httpd.conf" ] ; then
 	echo "HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 	sed -i.bak "s|${ip_regex}|${public_ip}|" httpd.conf
 fi
-cp httpd.conf /etc/apache2/httpd.conf
+sudo cp httpd.conf /etc/apache2/httpd.conf
 cd ~/
 #
 ## Config agent url to access status and add password protection
