@@ -150,8 +150,9 @@
 #echo "Include /etc/apache2/httpd.conf" >> /etc/apache2/apache2.conf
 # insert user input and copy new config file
 ip_regex="new_public_ip"
+cd ~/vps-setup/files/
 httpd_conf_file="~/vps-setup/files/httpd.conf"
-if [ -f "$httpd_conf_file" ] ; then
+if [ -f "httpd.conf" ] ; then
 	echo "HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 	sed -i.bak "s|${ip_regex}|${public_ip}|" $conf_file
 fi
