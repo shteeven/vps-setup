@@ -105,24 +105,16 @@ ufw allow www
 ufw enable
 
 # block repeat password attempts
-#apt-get install nginx
 apt-get install sendmail iptables-persistent
 apt-get install fail2ban
 
-# copy limit rates
-#cp /root/vps-setup/files/nginx.conf /etc/nginx/conf.d/nginx.conf
 # copy fail2ban triggers
 cp /root/vps-setup/files/jail.local /etc/fail2ban/jail.local
 # copy ban actions
 cp /root/vps-setup/files/ufw.conf /etc/fail2ban/action.d/ufw.conf
-# copy filter limits
-#cp /root/vps-setup/files/filter-nginx-req-limit.conf /etc/fail2ban/filter.d/nginx-req-limit.conf
-# copy jail limits
-#cp /root/vps-setup/files/jail-nginx-req-limit.conf /etc/fail2ban/jail.d/nginx-req-limit.conf
 
 # finish fail2ban setup
 service fail2ban reload
-#service nginx reload
 
 ################################
 # Install apache and prepare server for application
@@ -150,35 +142,39 @@ a2enmod status
 # include the new config file
 echo "Include /etc/apache2/httpd.conf" >> /etc/apache2/apache2.conf
 # insert user input and copy new config file; problems with use of tilde here, so used cd instead of paths
-ip_regex="new_public_ip"
-cd ~/vps-setup/files/
-if [ -f "httpd.conf" ] ; then
-	echo "HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-	sed -i.bak "s|${ip_regex}|${public_ip}|" httpd.conf
-fi
-cp httpd.conf /etc/apache2/httpd.conf
-cd ~/
 
-# Config agent url to access status and add password protection
-agent_regex="^apache_status_url.*$"
-agent_conf_file="/etc/sd-agent/config.cfg"
-agent_new_line="apache_status_url: http://${public_ip}/server-status?auto"
-# replace line if exists, otherwise, append new line to file
-if grep $agent_regex $agent_conf_file > /dev/null
-then
-	sed -i.bak "s|${agent_regex}|${agent_new_line}|" $agent_conf_file
-else
-	if [ -f "$agent_conf_file" ] ; then
-   		echo ${agent_new_line} >> $agent_conf_file
-   	else
-   		mkdir /etc/sd-agent/
-   		touch ${agent_conf_file}
-   		echo ${agent_new_line} >> $agent_conf_file
-   	fi
-fi
-# set password and username to the new created user's name
-echo "apache_status_user: ${username}" >> $agent_conf_file
-echo "apache_status_pass: ${username}" >> $agent_conf_file
+#############################
+# Unable to get monitoring to work
+#############################
+#ip_regex="new_public_ip"
+#cd ~/vps-setup/files/
+#if [ -f "httpd.conf" ] ; then
+#	echo "HERE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+#	sed -i.bak "s|${ip_regex}|${public_ip}|" httpd.conf
+#fi
+#cp httpd.conf /etc/apache2/httpd.conf
+#cd ~/
+#
+## Config agent url to access status and add password protection
+#agent_regex="^apache_status_url.*$"
+#agent_conf_file="/etc/sd-agent/config.cfg"
+#agent_new_line="apache_status_url: http://${public_ip}/server-status?auto"
+## replace line if exists, otherwise, append new line to file
+#if grep $agent_regex $agent_conf_file > /dev/null
+#then
+#	sed -i.bak "s|${agent_regex}|${agent_new_line}|" $agent_conf_file
+#else
+#	if [ -f "$agent_conf_file" ] ; then
+#   		echo ${agent_new_line} >> $agent_conf_file
+#   	else
+#   		mkdir /etc/sd-agent/
+#   		touch ${agent_conf_file}
+#   		echo ${agent_new_line} >> $agent_conf_file
+#   	fi
+#fi
+## set password and username to the new created user's name
+#echo "apache_status_user: ${username}" >> $agent_conf_file
+#echo "apache_status_pass: ${username}" >> $agent_conf_file
 
 ################################
 # Install application and dependencies
