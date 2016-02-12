@@ -17,6 +17,13 @@ $ touch ~/.ssh/vps_rsa
 ```sh
 $ ssh-keygen
 ```
+- Secure your .ssh dir and rsa key file:
+```sh
+$ chmod 700 ~/.ssh
+```
+```sh
+$ chmod 700 ~/.ssh/vps_rsa
+```
 -  View the contents of '~/.ssh/vps_rsa':
 ```sh
 $ cat ~/.ssh/vps_rsa.pub

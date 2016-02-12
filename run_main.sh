@@ -9,7 +9,7 @@ read rsa_pub_key
 echo "You entered: $rsa_pub_key"
 
 default_git_repo="https://github.com/shteeven/catalog-app.git"
-echo "Please enter git repo URL: MUST BE SAME AS REPO's NAME!!! ($default_git_repo)"
+echo "Please enter git repo URL: ($default_git_repo)"
 read input_git_repo
 [[ $input_git_repo = '' ]] && git_repo="$default_git_repo" || git_repo="$input_git_repo"
 echo "You entered: $git_repo"
@@ -104,23 +104,24 @@ ufw allow www
 ufw enable
 
 # block repeat password attempts
-apt-get install nginx sendmail iptables-persistent
+#apt-get install nginx
+apt-get install sendmail iptables-persistent
 apt-get install fail2ban
 
 # copy limit rates
-cp /root/vps-setup/files/nginx.conf /etc/nginx/conf.d/nginx.conf
+#cp /root/vps-setup/files/nginx.conf /etc/nginx/conf.d/nginx.conf
 # copy fail2ban triggers
 cp /root/vps-setup/files/jail.local /etc/fail2ban/jail.local
 # copy ban actions
 cp /root/vps-setup/files/ufw.conf /etc/fail2ban/action.d/ufw.conf
 # copy filter limits
-cp /root/vps-setup/files/filter-nginx-req-limit.conf /etc/fail2ban/filter.d/nginx-req-limit.conf
+#cp /root/vps-setup/files/filter-nginx-req-limit.conf /etc/fail2ban/filter.d/nginx-req-limit.conf
 # copy jail limits
-cp /root/vps-setup/files/jail-nginx-req-limit.conf /etc/fail2ban/jail.d/nginx-req-limit.conf
+#cp /root/vps-setup/files/jail-nginx-req-limit.conf /etc/fail2ban/jail.d/nginx-req-limit.conf
 
 # finish fail2ban setup
 service fail2ban reload
-service nginx reload
+#service nginx reload
 
 ################################
 # Install apache and prepare server for application
@@ -203,9 +204,12 @@ chmod 700 .ssh
 chmod 644 .ssh/authorized_keys
 EOF
 
+service apache2 restart
+service ssh restart
+
+# Final message before reboot
 echo "FROM NOW ON, YOU MUST LOGIN AS ${username}"
 echo "ssh -i ~/.ssh/YOUR_LOCAL_KEY.rsa ${username}@XX.XX.XXX.XXX -p 2200"
 
-service apache2 restart
-service ssh restart
+# reboot system for good measure
 reboot
