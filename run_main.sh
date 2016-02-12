@@ -24,13 +24,13 @@ echo "You entered: $public_ip"
 #read input_app_name
 #[[ $input_app_name = '' ]] && app_name="$default_app_name" || app_name="$input_app_name"
 #echo "You entered: $app_name"
-#
-#default_username="grader"
-#echo "Please enter username: ($default_username)"
-#read input_username
-#[[ $input_username = '' ]] && username="$default_username" || username="$input_username"
-#echo "You entered: $username"
-#
+
+default_username="grader"
+echo "Please enter username: ($default_username)"
+read input_username
+[[ $input_username = '' ]] && username="$default_username" || username="$input_username"
+echo "You entered: $username"
+
 #
 #default_port="2200"
 #echo "Please enter desired ssh port: ($default_port)"
@@ -158,28 +158,28 @@ if [ -f "httpd.conf" ] ; then
 fi
 sudo cp httpd.conf /etc/apache2/httpd.conf
 cd ~/
-#
-## Config agent url to access status and add password protection
-#agent_regex="^apache_status_url.*$"
-#agent_conf_file="/etc/sd-agent/config.cfg"
-#agent_new_line="apache_status_url: http://${public_ip}/server-status?auto"
-## replace line if exists, otherwise, append new line to file
-#if grep $agent_regex $agent_conf_file > /dev/null
-#then
-#	sed -i.bak "s|${agent_regex}|${agent_new_line}|" $agent_conf_file
-#else
-#	if [ -f "$agent_conf_file" ] ; then
-#   		echo ${agent_new_line} >> $agent_conf_file
-#   	else
-#   		mkdir /etc/sd-agent/
-#   		touch ${agent_conf_file}
-#   		echo ${agent_new_line} >> $agent_conf_file
-#   	fi
-#fi
-## set password and username to the new created user's name
-#echo "apache_status_user: ${username}" >> $agent_conf_file
-#echo "apache_status_pass:${username}" >> $agent_conf_file
-#
+
+# Config agent url to access status and add password protection
+agent_regex="^apache_status_url.*$"
+agent_conf_file="/etc/sd-agent/config.cfg"
+agent_new_line="apache_status_url: http://${public_ip}/server-status?auto"
+# replace line if exists, otherwise, append new line to file
+if grep $agent_regex $agent_conf_file > /dev/null
+then
+	sudo sed -i.bak "s|${agent_regex}|${agent_new_line}|" $agent_conf_file
+else
+	if [ -f "$agent_conf_file" ] ; then
+   		echo ${agent_new_line} | sudo tee -a $agent_conf_file
+   	else
+   		sudo mkdir /etc/sd-agent/
+   		sudo touch ${agent_conf_file}
+   		echo ${agent_new_line} | sudo tee -a $agent_conf_file
+   	fi
+fi
+# set password and username to the new created user's name
+echo "apache_status_user: ${username}" | sudo tee -a $agent_conf_file
+echo "apache_status_pass: ${username}" | sudo tee -a $agent_conf_file
+
 #################################
 ## Install application and dependencies
 #################################
