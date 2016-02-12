@@ -71,4 +71,12 @@ http://ec2-XX-XX-XX-XX.us-west-2.compute.amazonaws.com/ with the XXs being your 
 - Once finished, you will have to login as the newly created user from the port chosen; it should look similar to this: `ssh –i ~/.ssh/vps_rsa grader@XX.XX.XX.XXX -p 2200`
 - Enjoy the app.
 
+
+## This and Thats
+
+#### Fail2ban
+For viewing the status of banned ips, enter `sudo fail2ban-client status apache`.
+To un-ban an ip address after fail2ban has blocked it, enter `sudo fail2ban-client set apache unbanip XX.XX.XXX.XXX`.
+
+
 [1]: https://github.com/shteeven/catalog-app/tree/master/vps
