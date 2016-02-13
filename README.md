@@ -1,3 +1,16 @@
+## FOR THE UDACITY GRADER
+
+#### Info
+- IP addr: 52.10.212.179
+- Port: 2200
+- Login: ssh -i ~/.ssh/vps_rsa grader@52.10.212.179 -p 2200
+- Complete url: http://ec2-52-10-212-179.us-west-2.compute.amazonaws.com/
+
+#### Summary of Packages and Changes
+If you wish for a more detailed view of the changes, please review the run_main.sh; I have put comments on almost every action.
+
+For the packages, I've installed the packages discussed in the "Configuring Linux Web Servers" course, such as apache2 and mod_wsgi. In addition to this, I have: installed 'cron', setting it up to update/upgrade the system packages weekly; changed the ssh port to 2200; set ufw to block all but ssh, 2200, ntp, and www ports; installed 'fail2ban' and other auxillary packages to monitor and block brute-force attackers; changed apache's defaults to look for my projects wsgi file to handle web requests; set up user 'catalog' in psql and deny permission to catalog DB for public, but allow connection from user 'catalog'; created user 'grader', gave grader sudo ability; set up key login for grader; blocked ssh login to root user.
+
 ## Synopsis
 
 THIS FILE IS DESIGNED FOR A UDACITY NANODEGREE PROJECT. It can be modded to fit many others; use it as you wish, but know that some steps have been taken care of by Udacity, and are not covered in this README.
@@ -66,8 +79,7 @@ $ chmod +x run_main.sh
 $ ./run_main.sh
 ```
 - Enter any information for which you are prompted.
-- After script has finished, update the oauth providers to accept login requests from the new URL, which should look something like this:
-http://ec2-XX-XX-XX-XX.us-west-2.compute.amazonaws.com/ with the XXs being your VPS ip address.
+- After script has finished, update the oauth providers to accept login requests from the new URL, which should look something like this: http://ec2-XX-XX-XX-XX.us-west-2.compute.amazonaws.com/ with the XXs being your VPS ip address.
 - Once finished, you will have to login as the newly created user from the port chosen; it should look similar to this: `ssh –i ~/.ssh/vps_rsa grader@XX.XX.XX.XXX -p 2200`
 - Enjoy the app.
 
