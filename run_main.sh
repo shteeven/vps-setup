@@ -137,15 +137,15 @@ fi
 # copy newly modded file and replace old config file
 cp -f $conf_file /etc/apache2/sites-enabled/
 
-# enable Apache monitoring
-a2enmod status
-# include the new config file
-echo "Include /etc/apache2/httpd.conf" >> /etc/apache2/apache2.conf
-# insert user input and copy new config file; problems with use of tilde here, so used cd instead of paths
-
 #############################
-# Unable to get monitoring to work
+# Unable to get monitoring to work appropriately
 #############################
+## enable Apache monitoring
+#a2enmod status
+## include the new config file
+#echo "Include /etc/apache2/httpd.conf" >> /etc/apache2/apache2.conf
+## insert user input and copy new config file; problems with use of tilde here, so used cd instead of paths
+#
 #ip_regex="new_public_ip"
 #cd ~/vps-setup/files/
 #if [ -f "httpd.conf" ] ; then

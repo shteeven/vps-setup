@@ -22,7 +22,7 @@ $ ssh-keygen
 $ chmod 700 ~/.ssh
 ```
 ```sh
-$ chmod 700 ~/.ssh/vps_rsa
+$ chmod 600 ~/.ssh/vps_rsa
 ```
 -  View the contents of '~/.ssh/vps_rsa':
 ```sh
