@@ -1,10 +1,10 @@
 ## FOR THE UDACITY GRADER
 
 #### Info
-- IP addr: 52.10.212.179
+- IP addr: 52.36.104.94
 - Port: 2200
-- Login: ssh -i ~/.ssh/vps_rsa grader@52.10.212.179 -p 2200
-- Complete url: http://ec2-52-10-212-179.us-west-2.compute.amazonaws.com/
+- Login: ssh -i ~/.ssh/vps_rsa grader@52.36.104.94 -p 2200
+- Complete url: http://ec2-52-36-104-94.us-west-2.compute.amazonaws.com/
 
 ## Synopsis
 
