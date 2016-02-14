@@ -6,18 +6,33 @@
 - Login: ssh -i ~/.ssh/vps_rsa grader@52.10.212.179 -p 2200
 - Complete url: http://ec2-52-10-212-179.us-west-2.compute.amazonaws.com/
 
-#### Summary of Packages and Changes
-If you wish for a more detailed view of the changes, please review the run_main.sh; I have put comments on almost every action.
-
-For the packages, I've installed the packages discussed in the "Configuring Linux Web Servers" course, such as apache2 and mod_wsgi. In addition to this, I have: installed 'cron', setting it up to update/upgrade the system packages weekly; changed the ssh port to 2200; set ufw to block all but ssh, 2200, ntp, and www ports; installed 'fail2ban' and other auxillary packages to monitor and block brute-force attackers; changed apache's defaults to look for my projects wsgi file to handle web requests; set up user 'catalog' in psql and deny permission to catalog DB for public, but allow connection from user 'catalog'; created user 'grader', gave grader sudo ability; set up key login for grader; blocked ssh login to root user.
-
 ## Synopsis
 
-THIS FILE IS DESIGNED FOR A UDACITY NANODEGREE PROJECT. It can be modded to fit many others; use it as you wish, but know that some steps have been taken care of by Udacity, and are not covered in this README.
+THIS PROJECT IS DESIGNED FOR A UDACITY NANODEGREE ASSIGNMENT. It can be modded to fit many others; use it as you wish, but know that some steps have been taken care of by Udacity, and are not covered in this README.
 
 A fast, simple and secure set-up for running your Flask application on a vps. This set up assumes you are on a Unix system (only tested on Mac OSX) and have a VPS set up with Amazon, Heroku, or other like service that runs an Ubuntu 14.04 system. It will work with others, but this is the only tested version.
 
 This script still requires work to make it more universal, but for now, it works with my catalog-app. There are some steps that are project specific, and I have placed those in a VPS folder within that specific project. This keeps things more modular; you can use the catalog-app VPS folder as an example, [here][1].
+
+## Summary of Packages and Changes
+If you wish for a more detailed view of the changes, please review the run_main.sh; I have put comments on almost every action.
+
+#### Installed and initialized packages:
+- Cron - setting up CRON operations to update/upgrade the system packages weekly
+- Fail2Ban - monitor and block brute-force attackers
+- Apache2 - serve content and manage requests; configured to block requests to the .git dir
+- Libapache2_mod_wsgi - allow wsgi apps to process requests that meet criteria in the Apache config files
+- Postgresql - database for storing app data; is set to deny remote connections; created user 'catalog' (this operations should more to the project specific VPS folder)
+- Pip - package installation and management
+
+#### Modified and/or enabled:
+- Add User - added new user, 'grader'; gave user sudo ability and a secure password
+- Upgrade - updated and upgraded all packages that initially came with the system
+- Time and Date - changed time zone to UTC
+- SSH - changed ssh_config to accept SSH from port 2200 and disallow root login
+- Firewall - set ufw to deny all incoming requests except ssh, 2200, ntp, and www ports
+- RSA Pub Key - copied, and granted permissions to, user provided RSA key in the $HOME/authorized_keys file
+
 
 ## Installation
 - Open two terminals: one for local and one for later work with the vps.
@@ -37,7 +52,7 @@ $ chmod 700 ~/.ssh
 ```sh
 $ chmod 600 ~/.ssh/vps_rsa
 ```
--  View the contents of '~/.ssh/vps_rsa':
+-  View the contents of '~/.ssh/vps_rsa.pub':
 ```sh
 $ cat ~/.ssh/vps_rsa.pub
 ```

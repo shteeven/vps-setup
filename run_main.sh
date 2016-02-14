@@ -138,7 +138,7 @@ fi
 # copy newly modded file and replace old config file
 cp -f $conf_file /etc/apache2/sites-enabled/
 
-# enable Apache monitoring
+# enable Apache monitoring; needs work
 a2enmod status
 
 ################################
