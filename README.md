@@ -10,32 +10,32 @@
 
 THIS PROJECT IS DESIGNED FOR A UDACITY NANODEGREE ASSIGNMENT. It can be modded to fit many others; use it as you wish, but know that some steps have been taken care of by Udacity, and are not covered in this README.
 
-A fast, simple and secure set-up for running your Flask application on a vps. This set up assumes you are on a Unix system (only tested on Mac OSX) and have a VPS set up with Amazon, Heroku, or other like service that runs an Ubuntu 14.04 system. It will work with others, but this is the only tested version.
+A fast, simple and secure set-up for running your Flask application on a VPS. This set up assumes you are on a Unix system (only tested on Mac OSX) and have a VPS set up with Amazon, or other like service that runs an Ubuntu 14.04 system. It will work with others, but this is the only tested OS.
 
-This script still requires work to make it more universal, but for now, it works with my catalog-app. There are some steps that are project specific, and I have placed those in a VPS folder within that specific project. This keeps things more modular; you can use the catalog-app VPS folder as an example, [here][1].
+This script still requires work to make it more universal, but for now, it works with the catalog-app I have made. There are some steps that are project specific, and I have placed those in a VPS folder within that specific project. This keeps things more modular; you can use the catalog-app VPS folder as an example, [here][1].
 
 ## Summary of Packages and Changes
-If you wish for a more detailed view of the changes, please review the run_main.sh; I have put comments on almost every action.
+If you wish for a more detailed view of the changes, please review the run_main.sh; I have put comments on most actions.
 
 #### Installed and initialized packages:
 - Cron - setting up CRON operations to update/upgrade the system packages weekly
 - Fail2Ban - monitor and block brute-force attackers
 - Apache2 - serve content and manage requests; configured to block requests to the .git dir
-- Libapache2_mod_wsgi - allow wsgi apps to process requests that meet criteria in the Apache config files
-- Postgresql - database for storing app data; is set to deny remote connections; created user 'catalog' (this operations should more to the project specific VPS folder)
+- Libapache2_mod_wsgi - allow WSGI apps to process requests that meet criteria in the Apache config files
+- Postgresql - database for storing app data; is set to deny remote connections; create user 'catalog' (this operation should move to the project specific VPS folder)
 - Pip - package installation and management
 
-#### Modified and/or enabled:
-- Add User - added new user, 'grader'; gave user sudo ability and a secure password
-- Upgrade - updated and upgraded all packages that initially came with the system
-- Time and Date - changed time zone to UTC
-- SSH - changed ssh_config to accept SSH from port 2200 and disallow root login
+#### Modify and/or enable:
+- Add User - add new user, 'grader'; give user sudo ability and a secure password
+- Upgrade - update and upgrade all packages that initially come with the system
+- Time and Date - change time zone to UTC
+- SSH - change ssh_config to accept SSH from port 2200 and disallow root login
 - Firewall - set ufw to deny all incoming requests except ssh, 2200, ntp, and www ports
-- RSA Pub Key - copied, and granted permissions to, user provided RSA key in the $HOME/authorized_keys file
+- RSA Pub Key - copy, and grant permissions to user, the user provided RSA key to $HOME/authorized_keys
 
 
 ## Installation
-- Open two terminals: one for local and one for later work with the vps.
+- Open two terminals: one for local and one for later work with the VPS.
 #### LOCAL TERMINAL
 - Create a folder to store keys: '~/.ssh/vps_rsa':
 ```sh
